@@ -1,24 +1,33 @@
 //
-//  ContentView.swift
-//  Memorize
+//  MemoryGameView.swift
+//  MemorizeGame
 //
-//  Created by 王蒙 on 13/09/2023.
-//  EmojiMemoryGameView
+//  Created by 王蒙 on 12/11/2023.
+//
 
 import SwiftUI
 
-struct EmojiMemoryGameView: View {
-    @ObservedObject var viewModel : EmojiMemoryGame
+struct MemoryGameView: View {
+    @ObservedObject var viewModel : MemoryGameViewModel
     
     var body: some View {
         VStack {
             // 此种大括号初始化方式为trailing closure 尾随闭包，所以可以直接用大括号
+            
+            Text(viewModel.themeName)
+                .fontWeight(.bold)
             ScrollView {
                 cards
                     .animation(.default, value: viewModel.cards)
             }
-            Button("Shuffle") {
-                viewModel.shuffle()
+            HStack {
+                Button("New Game") {
+                    viewModel.newGame()
+                }
+                Spacer()
+                Button("Shuffle") {
+                    viewModel.shuffle()
+                }
             }
         }
         .padding()
@@ -40,9 +49,9 @@ struct EmojiMemoryGameView: View {
 }
 
 struct CardView: View {
-    let card: MemoryGame<String>.Card
+    let card: MemoryGameModel<String>.Card
     
-    init(_ card: MemoryGame<String>.Card) {
+    init(_ card: MemoryGameModel<String>.Card) {
         self.card = card
     }
     
@@ -67,10 +76,10 @@ struct CardView: View {
     }
 }
 
-struct EmojiMemoryGameView_Previews: PreviewProvider {
+struct MemoryGameView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+            MemoryGameView(viewModel: MemoryGameViewModel())
         }
     }
 }

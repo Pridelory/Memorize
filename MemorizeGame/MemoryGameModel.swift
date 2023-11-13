@@ -1,16 +1,16 @@
 //
-//  MemorizeGame.swift
-//  Memorize
+//  MemoryGameModel.swift
+//  MemorizeGame
 //
-//  Created by 王蒙 on 30/10/2023.
+//  Created by 王蒙 on 11/11/2023.
 //
 
 import Foundation
 
-struct MemoryGame<CardContent> where CardContent: Equatable {
+struct MemoryGameModel<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     
-    init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+    init(_ numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = []
         // add numberOfPairsOfCards x 2 cards
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
@@ -86,6 +86,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     // Structures and enumerations are value types. By default, the properties of a value type can’t be modified from within its instance methods.
     mutating func shuffle() {
         cards.shuffle()
+    }
+    
+    mutating func newGame() {
+        
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
